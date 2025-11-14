@@ -1,0 +1,179 @@
+% ====================================================
+% General layout, typography & document-wide settings
+% ====================================================
+
+% ----------- Document settings -----------
+\def\documentTitle      {Onderzoeken schrijven in Latex} % replace with actual document title
+\def\documentSubtitle   {Een basis bestand voor een gelijke uitstraling} % replace with actual subtitle if any, else leave empty
+\def\authorName         {John Doe} % replace with actual author name
+\def\authorEmail        {JohnDoe@gmail.com} % replace with actual author email
+\def\institutionName    {Harvard} % replace with actual institution name
+\def\institutionCountry {Verenigde Staten} % replace with actual institution location
+\def\institutionCity    {Massachusetts} % replace with actual institution location
+\def\dueDate            {Oktober 2025} % replace with actual due date
+
+\def\editorsVersion     {false} % true om editorsnote e.d. te tonen, false voor verbergen
+\def\makeTitlePage      {true}  % true om titelpagina te maken, false om over te slaan
+\def\makeTOCpage        {true}  % true om inhoudsopgave te maken, false om over te slaan
+\def\makeBibliography   {false}  % true om bibliografie te maken, false om over te slaan
+
+\def\listMark           {-} % itemize marker, e.g. '-', '*', '\textbullet', etc.
+
+%----------- DONT TOUCH BELOW THIS LINE -----------
+\usepackage{xparse}
+\usepackage{xstring}
+
+% ----------- Encoding & Fonts -----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{scalefnt}
+
+% ----------- Page layout -----------
+\usepackage{expl3}
+\usepackage{array}
+\setlength{\columnsep}{0.333in}
+\renewcommand{\baselinestretch}{1.05}
+\setlength\parindent{2mm}
+\setlength{\footskip}{40pt} %set footer size bigger to avoid overlap with text
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    left=15mm,
+    right=15mm,
+    top=15mm,
+    bottom=15mm,
+}
+
+% ----------- Table of Contents -----------
+\usepackage{titletoc}
+\setcounter{tocdepth}{2} % include subsections in TOC
+%
+ \titlecontents{section}
+ [0] % i
+ {\vspace{0.05cm}}
+ {\thecontentslabel\enspace}%\thecontentslabel
+ {}
+ {\titlerule*[0.1cm]{.}\contentspage}%]
+
+ \titlecontents{subsection}
+ [1em] %
+ {\vspace{0.05cm}}
+ {\thecontentslabel\enspace}%\thecontentslabel
+ {\hspace*{1em}}
+ {\titlerule*[0.1cm]{.}\contentspage}
+
+
+% ----------- Typography -----------
+\usepackage{microtype} % subtle spacing & justification improvements
+
+% ----------- Headings -----------
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.75em}{}
+
+% ----------- Lists -----------
+\usepackage{enumitem}
+\setlist[itemize]{
+    leftmargin = *,
+    listparindent = 10mm,
+    label = {\listMark} % makes the default item marker a dash
+}
+
+% ----------- Figures & Tables -----------
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs} % professional tables
+\usepackage[table]{xcolor}
+\usepackage{environ}
+
+% Caption formatting
+\usepackage{caption}
+\captionsetup[table]{
+    name=Tabel,                  % rename "Table" to "Tabel"
+    labelfont={bf},              % "Tabel 1:" in bold
+    textfont={normalfont},       % caption text in normal (non-bold)
+    labelsep=colon               % ensures "Tabel 1:" (with colon)
+}
+
+\captionsetup[figure]{
+    name=Figuur,                 % rename "Figure" to "Figuur"
+    labelfont={bf},              % "Figuur 1:" in bold
+    textfont={normalfont},       % caption text in normal (non-bold)
+    labelsep=colon               % ensures "Figuur 1:" (with colon)
+}
+
+% ----------- Footnotes -----------
+\usepackage[hang,flushmargin]{footmisc}
+
+% ----------- Hyperlinks -----------
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+]{hyperref}
+
+% ----------- Column balance -----------
+\usepackage{balance}
+
+% ----------- Bibliography -----------
+\usepackage[backend=biber,style=apa]{biblatex}
+\DeclareLanguageMapping{dutch}{dutch-apa}
+\DefineBibliographyStrings{dutch}{andothers = {et al.}}
+\addbibresource{main.bib}
+\setlength\bibitemsep{0.25em}
+
+% ----------- ACM-style tweaks (optional) -----------
+\settopmatter{printacmref=false}
+\setcopyright{none}
+\settopmatter{printfolios=true}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+
+% ----------- Editors/general version -----------
+\usepackage{comment}
+\usepackage{ifthen}
+\newboolean{editorsversion}
+\setboolean{editorsversion}{\editorsVersion}  % change to false for student version
+
+
+% ----------- Paper layout information -----------
+\title{\documentTitle}
+\subtitle{\documentSubtitle}
+
+\author{\authorName}
+\date{\dueDate}
+\email{\authorEmail}
+\affiliation{
+    \institution{\institutionName}
+    \city{\institutionCity}
+    \country{\institutionCountry}
+}
+
+\hypersetup{
+    pdfauthor={\authorName},
+    pdftitle={\documentTitle},
+    pdfborder={0 0 0}
+}
+
+% When \begin{document} is written, also add \maketitle and \tableofcontents there. (if settings are true)
+\AtBeginDocument
+{%
+    \ifthenelse{\equal{\makeTitlePage}{true}}{%
+        \maketitle
+    }{}
+    \ifthenelse{\equal{\makeTOCpage}{true}}{%
+        \tableofcontents
+        \newpage
+    }{}
+}%
+
+% Before \end{document}, add bibliography
+\AtEndDocument
+{%
+    \ifthenelse{\equal{\makeBibliography}{true}}{%
+        \printbibliography
+    }{}
+}%
