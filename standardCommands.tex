@@ -274,16 +274,13 @@
 \ExplSyntaxOff
 
 \NewEnviron{SimpleTable}[3][s{1} s{1}]{%
-    \begin{table}[h]
-        \centering
-        \scalefont{0.75}
-        \begin{tabularx}{\columnwidth}{#1}
-            \BODY
-            \arrayrulecolor{black!80}\specialrule{1pt}{0pt}{0pt}\arrayrulecolor{black}
-        \end{tabularx}
-        \IfNonEmpty{#2}{\caption{#2}}%
-        \IfNonEmpty{#3}{\label{#3}}%
-    \end{table}%
+    \scalefont{0.75}
+    \begin{tabularx}{\linewidth}{#1}
+        \BODY
+        \arrayrulecolor{black!80}\specialrule{1pt}{0pt}{0pt}\arrayrulecolor{black}
+    \end{tabularx}
+    \IfNonEmpty{#2}{\captionof{table}{#2}}%
+    \IfNonEmpty{#3}{\label{#3}}%
 }
 
 % --- Table Styling Macros ------------------------------------------------------
@@ -361,7 +358,7 @@
 \NewDocumentCommand{\TableSpacer}{}{\\[-3pt]}
 
 % ============================================================
-% 5. SIMPLE CODE ENVIRONMENT
+% 5. Example enviroment
 % ============================================================
 %
 % A consistent, minimal table layout system with helper macros
@@ -382,3 +379,17 @@
 %   {<label>}    : optional table label for referencing
 %
 % ============================================================
+
+\newenvironment{voorbeeld}[1]
+{
+    \vsmall
+    \raggedright Voorbeeld \IfNonEmpty{#1}{\textbf{(#1)}}: \\
+    \vspace{1mm}
+    \hline
+    \vspace{1mm}
+}
+{
+    \vspace{1mm}
+    \\ \hline
+    \vsmall
+}
