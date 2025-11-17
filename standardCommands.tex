@@ -286,30 +286,34 @@
 % --- Table Styling Macros ------------------------------------------------------
 
 % ========== Header Row ==========
-\NewDocumentCommand{\TableHeader}{>{\SplitArgument{5}{&}}m}{%
+\NewDocumentCommand{\TableHeader}{>{\SplitArgument{7}{&}}m}{%
     \tableheaderaux#1%
 }
-\NewDocumentCommand{\tableheaderaux}{mmmmmm}{%
+\NewDocumentCommand{\tableheaderaux}{mmmmmmmm}{%
     \IfValueT{#1}{\textbf{#1}}%
     \IfValueT{#2}{& \textbf{#2}}%
     \IfValueT{#3}{& \textbf{#3}}%
     \IfValueT{#4}{& \textbf{#4}}%
     \IfValueT{#5}{& \textbf{#5}}%
     \IfValueT{#6}{& \textbf{#6}}%
+    \IfValueT{#7}{& \textbf{#7}}%
+    \IfValueT{#8}{& \textbf{#8}}%
     \\ \arrayrulecolor{black!80}\specialrule{1pt}{0pt}{0pt}\arrayrulecolor{black}
 }
 
 % ========== Normal Row ==========
-\NewDocumentCommand{\TableRow}{>{\SplitArgument{5}{&}}m}{%
+\NewDocumentCommand{\TableRow}{>{\SplitArgument{7}{&}}m}{%
     \tablerowaux#1%
 }
-\NewDocumentCommand{\tablerowaux}{mmmmmm}{%
+\NewDocumentCommand{\tablerowaux}{mmmmmmmm}{%
     \IfValueT{#1}{#1}%
     \IfValueT{#2}{& #2}%
     \IfValueT{#3}{& #3}%
     \IfValueT{#4}{& #4}%
     \IfValueT{#5}{& #5}%
     \IfValueT{#6}{& #6}%
+    \IfValueT{#7}{& #7}%
+    \IfValueT{#8}{& #8}%
     \\ \arrayrulecolor{black!10}\specialrule{0.5pt}{1pt}{0pt}\arrayrulecolor{black}
 }
 
@@ -317,30 +321,34 @@
 \NewDocumentCommand{\TableEmpty}{}{\\}
 
 % ========== Subheader Row ==========
-\NewDocumentCommand{\TableSubHeader}{>{\SplitArgument{5}{&}}m}{%
+\NewDocumentCommand{\TableSubHeader}{>{\SplitArgument{7}{&}}m}{%
     \tablesubheaderaux#1%
 }
-\NewDocumentCommand{\tablesubheaderaux}{mmmmmm}{%
+\NewDocumentCommand{\tablesubheaderaux}{mmmmmmmm}{%
     \IfValueT{#1}{\underline{\textbf{#1}}}%
     \IfValueT{#2}{& \underline{\textbf{#2}}}%
     \IfValueT{#3}{& \underline{\textbf{#3}}}%
     \IfValueT{#4}{& \underline{\textbf{#4}}}%
     \IfValueT{#5}{& \underline{\textbf{#5}}}%
     \IfValueT{#6}{& \underline{\textbf{#6}}}%
+    \IfValueT{#7}{& \underline{\textbf{#7}}}%
+    \IfValueT{#8}{& \underline{\textbf{#8}}}%
     \\[1pt]
 }
 
 % ========== Highlight Row ==========
-\NewDocumentCommand{\TableHighlightRow}{>{\SplitArgument{5}{&}}m}{%
+\NewDocumentCommand{\TableHighlightRow}{>{\SplitArgument{7}{&}}m}{%
     \tablehighlightaux#1%
 }
-\NewDocumentCommand{\tablehighlightaux}{mmmmmm}{%
+\NewDocumentCommand{\tablehighlightaux}{mmmmmmmm}{%
     \IfValueT{#1}{\textbf{#1}}%
     \IfValueT{#2}{& \textbf{#2}}%
     \IfValueT{#3}{& \textbf{#3}}%
     \IfValueT{#4}{& \textbf{#4}}%
     \IfValueT{#5}{& \textbf{#5}}%
     \IfValueT{#6}{& \textbf{#6}}%
+    \IfValueT{#7}{& \textbf{#7}}%
+    \IfValueT{#8}{& \textbf{#8}}%
     \\ \arrayrulecolor{black!50}\specialrule{0.8pt}{1pt}{2pt}\arrayrulecolor{black}
 }
 
@@ -361,22 +369,15 @@
 % 5. Example enviroment
 % ============================================================
 %
-% A consistent, minimal table layout system with helper macros
-% for headers, subheaders, highlights, and notes.
+% A small added enviroment for creating a small example
 %
 % Usage:
-%   \begin{SimpleTable}[<col spec>]{<caption>}{<label>}
-%       \TableHeader{Col A & Col B}
-%       \TableRow{Data 1 & Data 2}
-%       \TableSubHeader{Sub A & Sub B}
-%       \TableHighlightRow{Important & Entry}
-%       \TableNote{This is a note below the table.}
-%   \end{SimpleTable}
+%   \begin{voorbeeld}[<label>]
+%       Just the text you want
+%   \end{voorbeeld}
 %
 % Arguments:
-%   [<col spec>] : tabularx column layout (default: s{1} s{1})
-%   {<caption>}  : optional table caption
-%   {<label>}    : optional table label for referencing
+%   [label] : The label you want ontop of the voorbeeld box
 %
 % ============================================================
 
