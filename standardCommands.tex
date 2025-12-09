@@ -117,6 +117,16 @@
     (#1 \citeauthor{#3}, \citeyear{#3}#2)%
 }
 
+% --- text with lines on the left and right---- --------------
+%
+% Usage:
+%   \ruleline{text in the middle}
+%
+% Produces: --------- text in the middle ---------
+% |
+% \> where the line is columnwidth
+% ------------------------------------------------------------
+\newcommand*\ruleline[1]{\par\noindent\raisebox{.8ex}{\makebox[\linewidth]{\hrulefill\hspace{1ex}\raisebox{-.8ex}{\textbf{#1}}\hspace{1ex}\hrulefill}}}
 
 % ============================================================
 % 3. EDITOR TOOLS & COMMENTS
