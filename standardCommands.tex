@@ -404,3 +404,20 @@
     \\ \hline
     \vsmall
 }
+
+%=============================================================
+% 6. Landscape Page Environment
+%=============================================================
+% A simple environment to create a landscape page with correct page numbering
+% Usage:
+%   \beginLandscape
+%       Just put the content you want on the landscape page here
+%   \endLandscape
+%=============================================================
+\newenvironment{landscapepage}{
+    \clearpage
+    \begin{landscape}
+}{
+    \end{landscape}
+    \clearpage
+}

@@ -44,6 +44,20 @@
     top=15mm,
     bottom=15mm,
 }
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+
+\fancypagestyle{mylandscape}{
+    \fancyhf{} %Clears the header/footer
+    \fancyfoot{% Footer
+        \makebox[\textwidth][r]{% Right
+            \rlap{\hspace{.75cm}% Push out of margin by \footskip
+            \smash{% Remove vertical height
+                \raisebox{4.87in}{% Raise vertically
+                    \rotatebox{90}{\thepage}}}}}}% Rotate counter-clockwise
+    \renewcommand{\headrulewidth}{0pt}% No header rule
+    \renewcommand{\footrulewidth}{0pt}% No footer rule
+}
 
 % ----------- Table of Contents -----------
 \usepackage{titletoc}
@@ -101,7 +115,7 @@
 }
 
 \captionsetup[figure]{
-    name=Figuur,                 % rename "Figure" to "Figuur"
+    name=Figure,                 % rename "Figure" to "Figuur"
     labelfont={bf},              % "Figuur 1:" in bold
     textfont={normalfont},       % caption text in normal (non-bold)
     labelsep=colon               % ensures "Figuur 1:" (with colon)
